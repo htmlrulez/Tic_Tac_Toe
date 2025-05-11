@@ -7,6 +7,10 @@ import java.util.Random;
 public class main {
     static JFrame myFrame = new JFrame();
     static JPanel myPanel = new JPanel();
+    static JFrame winFrame = new JFrame();
+    static JButton xWinButton = new JButton("X WINS - \\ Game Over");
+    static JButton oWinButton = new JButton("O WINS - \\ Game Over");
+    static JButton tieButton = new JButton("GAME IS TIE - \\ Play Again?");
 
     public static void main(String[] args) {
 
@@ -33,19 +37,19 @@ public class main {
                         button.setText("X");
 
                         if (winCondition(allButtons, "X")) {
-                            xWinFrame();
+                            xWinFrame(winFrame, xWinButton);
                             return;
                         }
 
                         if (matchIsDraw(allButtons)) {
-                            gameIsTieWindow();
+                            gameIsTieWindow(winFrame, oWinButton);
                             return;
                         }
 
                         invokeDumbAI(allButtons);
 
                         if (winCondition(allButtons, "O")) {
-                            oWinFrame();
+                            oWinFrame(winFrame, tieButton);
                             return;
                         }
                     }
@@ -85,7 +89,6 @@ public class main {
             if (lisOfButtons[pos[0]].getText().equals(playingSymbol) &&
                     lisOfButtons[pos[1]].getText().equals(playingSymbol) &&
                     lisOfButtons[pos[2]].getText().equals(playingSymbol)) {
-                System.out.println(playingSymbol + " wins");
                 return true;
             }
         }
@@ -101,62 +104,52 @@ public class main {
         return true;
     }
 
-    private static void xWinFrame() {
-        JFrame winFrame = new JFrame();
+    private static void xWinFrame(JFrame winFrame, JButton xWinButton) {
         winFrame.setSize(800, 600);
         winFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        JButton winButton = new JButton("X WINS - \\ Game Over");
-        winFrame.add(winButton);
+        winFrame.add(xWinButton);
         winFrame.setVisible(true);
 
-        winButton.addActionListener(new ActionListener() {
+        xWinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                winFrame.dispose();
                 main.myFrame.dispose();
                 main.startGame();
             }
         });
     }
 
-    private static void oWinFrame() {
-        JFrame winFrame = new JFrame("Game Over");
+    private static void oWinFrame(JFrame winFrame, JButton oWinButton) {
         winFrame.setSize(800, 600);
         winFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        JButton winButton = new JButton("O WINS - Play Again?");
-        winFrame.add(winButton);
+        winFrame.add(oWinButton);
         winFrame.setVisible(true);
 
-        winButton.addActionListener(new ActionListener() {
+        oWinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                winFrame.dispose();
                 main.myFrame.dispose();
                 main.startGame();
             }
         });
     }
 
-    private static void gameIsTieWindow() {
-        JFrame winFrame = new JFrame("Game Over");
+    private static void gameIsTieWindow(JFrame winFrame, JButton tieButton) {
         winFrame.setSize(800, 600);
         winFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        JButton winButton = new JButton("GAME IS TIE - Play Again?");
-        winFrame.add(winButton);
+        winFrame.add(tieButton);
         winFrame.setVisible(true);
 
-        winButton.addActionListener(new ActionListener() {
+        tieButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                winFrame.dispose();
                 main.myFrame.dispose();
                 main.startGame();
             }
         });
     }
+
+
 }
 
 
